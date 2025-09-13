@@ -1,38 +1,127 @@
-.App {
+.teacher-code-input {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.classroom-page {
+  padding: 40px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.unified-code-box {
+  margin-top: 16px;
+  padding: 10px 18px;
+  background: #f0f4ff;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  color: #1b3a5c;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(33,161,243,0.08);
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.enter-class-btn {
+  margin-top: 16px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  border-radius: 6px;
+  background: #21a1f3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.enter-class-btn:disabled {
+  background: #b3d6f7;
+  color: #fff;
+  cursor: not-allowed;
+}
+.enter-class-btn:not(:disabled):hover {
+  background: #1b8edb;
 }
 
-.App-header {
-  background-color: #282c34;
+/* Landing page styles */
+.landing-container {
   min-height: 100vh;
+  background: #f5f6fa;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px 16px 40px;
+  background: #282c34;
+  color: #fff;
+}
+
+.site-title {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.login-btn, .signup-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #61dafb;
+  color: #282c34;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.signup-btn {
+  background: #21a1f3;
+  color: #fff;
+}
+.login-btn:hover, .signup-btn:hover {
+  background: #1b8edb;
+  color: #fff;
+}
+
+.landing-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.dropdown-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: #fff;
+  padding: 32px 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(40,44,52,0.08);
+  min-width: 320px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dropdown-group label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #282c34;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-group select {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
