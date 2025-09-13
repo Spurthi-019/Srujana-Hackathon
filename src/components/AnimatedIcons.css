@@ -1,0 +1,106 @@
+/* Animated Icons Styles */
+.animated-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.animated-icon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.icon-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawPath 1.5s ease-in-out forwards;
+}
+
+.icon-path-secondary {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawPath 1.5s ease-in-out 0.3s forwards;
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Arrow icon specific animation */
+.arrow-icon .icon-path {
+  animation: drawPath 1s ease-in-out forwards, arrowPulse 2s ease-in-out infinite 1.5s;
+}
+
+@keyframes arrowPulse {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+/* Icon hover effects for different types */
+.attendance-icon:hover {
+  color: #10b981;
+}
+
+.quiz-icon:hover {
+  color: #3b82f6;
+}
+
+.notes-icon:hover {
+  color: #f59e0b;
+}
+
+.leaderboard-icon:hover {
+  color: #ef4444;
+}
+
+/* Floating animation */
+.floating-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pulse animation */
+.pulse-icon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* Bounce animation */
+.bounce-icon {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}

@@ -1,0 +1,799 @@
+/* Notes Page Styles */
+.notes-page {
+  padding: 2rem;
+  min-height: 100vh;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.notes-title-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.notes-title-section p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notes-container {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  height: calc(100vh - 200px);
+}
+
+/* Sidebar Styles */
+.notes-sidebar {
+  background: var(--card-background);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.subjects-section,
+.modules-section,
+.topics-section {
+  margin-bottom: 2rem;
+}
+
+.subjects-section h3,
+.modules-section h3,
+.topics-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.subjects-list,
+.modules-list,
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Subject Cards */
+.subject-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #6b7280;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.subject-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-left-color: var(--primary-color);
+}
+
+.subject-card.active {
+  background: var(--primary-color-light);
+  border-color: var(--primary-color);
+  border-left-color: var(--primary-color);
+}
+
+.subject-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: var(--text-color);
+}
+
+.teacher-name {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
+}
+
+.modules-count {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.subject-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Module Cards */
+.module-card {
+  padding: 1rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.module-card.active {
+  background: var(--primary-color-light);
+  border-color: var(--primary-color);
+}
+
+.module-card h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: var(--text-color);
+}
+
+.module-progress {
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--background-secondary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transition: width 0.3s ease;
+}
+
+.progress-fill[data-progress="0"] { width: 0%; }
+.progress-fill[data-progress="10"] { width: 10%; }
+.progress-fill[data-progress="20"] { width: 20%; }
+.progress-fill[data-progress="30"] { width: 30%; }
+.progress-fill[data-progress="40"] { width: 40%; }
+.progress-fill[data-progress="45"] { width: 45%; }
+.progress-fill[data-progress="50"] { width: 50%; }
+.progress-fill[data-progress="60"] { width: 60%; }
+.progress-fill[data-progress="70"] { width: 70%; }
+.progress-fill[data-progress="75"] { width: 75%; }
+.progress-fill[data-progress="80"] { width: 80%; }
+.progress-fill[data-progress="90"] { width: 90%; }
+.progress-fill[data-progress="100"] { width: 100%; }
+
+.module-progress span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.topics-count {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Topic Cards */
+.topic-card {
+  padding: 1rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.topic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.topic-card.completed {
+  background: var(--success-color-light);
+  border-color: var(--success-color);
+}
+
+.topic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.topic-header h5 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.topic-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.topic-status.completed {
+  background: var(--success-color);
+  color: white;
+}
+
+.topic-status.pending {
+  background: var(--warning-color);
+  color: white;
+}
+
+.topic-card p {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.scheduled-date {
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Main Content Styles */
+.notes-main-content {
+  background: var(--card-background);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.calendar-section {
+  padding: 1.5rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.calendar-navigation {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.nav-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.today-btn {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.today-btn:hover {
+  background: var(--primary-color-dark);
+}
+
+/* Calendar Grid */
+.calendar-grid {
+  max-width: 100%;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  margin-bottom: 1px;
+}
+
+.weekday {
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: var(--background-secondary);
+}
+
+.calendar-days {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.calendar-day {
+  position: relative;
+  min-height: 80px;
+  padding: 0.5rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-day:hover {
+  background: var(--primary-color-light);
+  border-color: var(--primary-color);
+}
+
+.calendar-day.other-month {
+  opacity: 0.3;
+}
+
+.calendar-day.today {
+  background: var(--primary-color-light);
+  border-color: var(--primary-color);
+}
+
+.calendar-day.today .day-number {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.calendar-day.has-content {
+  background: var(--success-color-light);
+  border-color: var(--success-color);
+}
+
+.calendar-day.selected {
+  background: var(--primary-color);
+  color: white;
+}
+
+.calendar-day.selected .day-number {
+  color: white;
+}
+
+.day-number {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: auto;
+}
+
+.day-indicator {
+  margin-top: auto;
+}
+
+.content-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--success-color);
+  border-radius: 50%;
+  margin: 0 auto 0.25rem auto;
+}
+
+.day-preview {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Selected Day Details */
+.selected-day-details {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--background-secondary);
+}
+
+.selected-day-details h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+}
+
+.day-note-card,
+.topic-preview-card {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.note-header,
+.topic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.note-header h4,
+.topic-header h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.pdf-btn {
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.pdf-btn:hover {
+  background: var(--primary-color-dark);
+  transform: translateY(-1px);
+}
+
+.note-content,
+.topic-preview-card p {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+}
+
+.teacher-notes {
+  background: var(--info-color-light);
+  border: 1px solid var(--info-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.teacher-notes strong {
+  color: var(--info-color);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.teacher-notes p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.no-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.no-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.add-note-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.add-note-btn:hover {
+  background: var(--primary-color-dark);
+  transform: translateY(-1px);
+}
+
+/* PDF Viewer Styles */
+.pdf-viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.pdf-viewer-container {
+  width: 90%;
+  max-width: 800px;
+  height: 80%;
+  background: var(--background-color);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pdf-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--card-background);
+}
+
+.pdf-viewer-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.close-btn {
+  padding: 0.5rem;
+  background: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--error-color-dark);
+}
+
+.pdf-viewer-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.pdf-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.pdf-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.pdf-placeholder h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+}
+
+.pdf-placeholder p {
+  font-size: 1rem;
+  margin: 0 0 2rem 0;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.pdf-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.download-btn,
+.print-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover,
+.print-btn:hover {
+  background: var(--primary-color-dark);
+  transform: translateY(-1px);
+}
+
+/* Dynamic Color Classes */
+.subject-math { border-left-color: #3b82f6; }
+.subject-physics { border-left-color: #10b981; }
+.subject-chemistry { border-left-color: #f59e0b; }
+
+.color-math { background-color: #3b82f6; }
+.color-physics { background-color: #10b981; }
+.color-chemistry { background-color: #f59e0b; }
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .notes-container {
+    grid-template-columns: 300px 1fr;
+    gap: 1rem;
+  }
+  
+  .notes-sidebar {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .notes-page {
+    padding: 1rem;
+  }
+  
+  .notes-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .header-controls {
+    align-self: flex-end;
+  }
+  
+  .notes-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .notes-sidebar {
+    order: 2;
+    max-height: 400px;
+  }
+  
+  .notes-main-content {
+    order: 1;
+  }
+  
+  .calendar-day {
+    min-height: 60px;
+  }
+  
+  .day-preview {
+    display: none;
+  }
+  
+  .pdf-viewer-container {
+    width: 95%;
+    height: 90%;
+  }
+  
+  .pdf-viewer-header {
+    padding: 1rem;
+  }
+  
+  .pdf-viewer-content {
+    padding: 1rem;
+  }
+  
+  .pdf-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .notes-title-section h1 {
+    font-size: 2rem;
+  }
+  
+  .calendar-weekdays,
+  .calendar-week {
+    gap: 0;
+  }
+  
+  .calendar-day {
+    min-height: 50px;
+    padding: 0.25rem;
+  }
+  
+  .day-number {
+    font-size: 0.75rem;
+  }
+  
+  .weekday {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

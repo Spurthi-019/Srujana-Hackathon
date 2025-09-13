@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ThemeToggle from './components/ThemeToggle';
 import './Auth.css';
 
 const SignUpPage: React.FC = () => {
@@ -25,6 +26,9 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="auth-container">
+      <div className="auth-header">
+        <ThemeToggle />
+      </div>
       <form className="auth-form" onSubmit={handleSignUp}>
         <h2>Sign Up</h2>
         {error && <div className="auth-error">{error}</div>}

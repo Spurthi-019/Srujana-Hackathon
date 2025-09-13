@@ -3,33 +3,67 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import ClassroomPage from './ClassroomPage';
-import LoginPage from './LoginPage';
-import SignUpPage from './SignUpPage';
 import TakeAttendancePage from './TakeAttendancePage';
 import GenerateQuizPage from './GenerateQuizPage';
 import TakeNotesPage from './TakeNotesPage';
 import ClassLeaderboardPage from './ClassLeaderboardPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import ToastContainer from './components/ToastContainer';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { ToastProvider } from './contexts/ToastContext';
+import { ClerkProvider } from '@clerk/clerk-react';
+
+// Import your Publishable Key
+const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error('Add your Clerk Publishable Key to the .env file');
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/classroom/:code" element={<ClassroomPage />} >
-          <Route path="attendance" element={<TakeAttendancePage />} />
-          <Route path="quiz" element={<GenerateQuizPage />} />
-          <Route path="notes" element={<TakeNotesPage />} />
-          <Route path="leaderboard" element={<ClassLeaderboardPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <ToastProvider>
+        <ThemeProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="/classroom/:code" element={
+                <ProtectedRoute>
+                  <ClassroomPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/classroom/:code/attendance" element={
+                <ProtectedRoute>
+                  <TakeAttendancePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/classroom/:code/quiz" element={
+                <ProtectedRoute>
+                  <GenerateQuizPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/classroom/:code/notes" element={
+                <ProtectedRoute>
+                  <TakeNotesPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/classroom/:code/leaderboard" element={
+                <ProtectedRoute>
+                  <ClassLeaderboardPage />
+                </ProtectedRoute>
+              } />
+            </Routes>
+            <ToastContainer />
+          </BrowserRouter>
+        </ThemeProvider>
+      </ToastProvider>
+    </ClerkProvider>
   </React.StrictMode>
 );
 
