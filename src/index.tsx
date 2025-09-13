@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import ClassroomPage from './ClassroomPage';
+import StudentDashboard from './StudentDashboard';
+import TeacherDashboard from './components/Teacher/TeacherDashboard';
+import CreateClass from './components/Teacher/CreateClass';
+import ClassConfirmation from './components/Teacher/ClassConfirmation';
 import TakeAttendancePage from './TakeAttendancePage';
+import AttendanceResultsPage from './AttendanceResultsPage';
 import GenerateQuizPage from './GenerateQuizPage';
 import TakeNotesPage from './TakeNotesPage';
 import ClassLeaderboardPage from './ClassLeaderboardPage';
@@ -33,6 +38,26 @@ root.render(
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<App />} />
+              <Route path="/student/dashboard" element={
+                <ProtectedRoute>
+                  <StudentDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/teacher/dashboard" element={
+                <ProtectedRoute>
+                  <TeacherDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/teacher/create-class" element={
+                <ProtectedRoute>
+                  <CreateClass />
+                </ProtectedRoute>
+              } />
+              <Route path="/teacher/class-confirmation" element={
+                <ProtectedRoute>
+                  <ClassConfirmation />
+                </ProtectedRoute>
+              } />
               <Route path="/classroom/:code" element={
                 <ProtectedRoute>
                   <ClassroomPage />
@@ -41,6 +66,11 @@ root.render(
               <Route path="/classroom/:code/attendance" element={
                 <ProtectedRoute>
                   <TakeAttendancePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/classroom/:code/attendance/results" element={
+                <ProtectedRoute>
+                  <AttendanceResultsPage />
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/quiz" element={

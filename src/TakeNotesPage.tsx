@@ -4,6 +4,7 @@ import { UserButton } from '@clerk/clerk-react';
 import { useToast } from './contexts/ToastContext';
 import ThemeToggle from './components/ThemeToggle';
 import Breadcrumb from './components/Breadcrumb';
+import LectureRecorder from './components/LectureRecorder';
 import './TakeNotesPage.css';
 
 interface Subject {
@@ -49,6 +50,9 @@ const TakeNotesPage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [showPdfViewer, setShowPdfViewer] = useState(false);
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>('');
+  const [showRecorder, setShowRecorder] = useState(false);
+  const [, setRecordedLectures] = useState<string[]>([]);
+  const [showInstructions, setShowInstructions] = useState(true);
   
   // Sample data - in real app this would come from API
   const subjects: Subject[] = [
@@ -146,6 +150,29 @@ const TakeNotesPage: React.FC = () => {
     }
   ];
 
+  // Subject icons mapping
+  const subjectIcons = {
+    math: '📐',
+    physics: '⚡',
+    chemistry: '🧪'
+  };
+
+  // Get module icon based on name
+  const getModuleIcon = (moduleName: string) => {
+    if (moduleName.toLowerCase().includes('algebra')) return '🔢';
+    if (moduleName.toLowerCase().includes('geometry')) return '📐';
+    if (moduleName.toLowerCase().includes('mechanics')) return '⚙️';
+    if (moduleName.toLowerCase().includes('organic')) return '🧬';
+    return '📚';
+  };
+
+  // Get topic difficulty indicator
+  const getTopicDifficulty = (topicName: string) => {
+    if (topicName.toLowerCase().includes('basic') || topicName.toLowerCase().includes('fundamental')) return { icon: '🟢', level: 'Easy' };
+    if (topicName.toLowerCase().includes('advanced') || topicName.toLowerCase().includes('complex')) return { icon: '🔴', level: 'Hard' };
+    return { icon: '🟡', level: 'Medium' };
+  };
+
   const [dailyNotes] = useState<DayNote[]>([
     {
       date: '2025-09-13',
@@ -208,6 +235,47 @@ const TakeNotesPage: React.FC = () => {
     return undefined;
   };
 
+  // Handle recording completion
+  const handleRecordingComplete = (pdfUrl: string) => {
+    setRecordedLectures(prev => [...prev, pdfUrl]);
+    setCurrentPdfUrl(pdfUrl);
+    setShowPdfViewer(true);
+    setShowRecorder(false);
+    
+    addToast({
+      message: 'Lecture recording completed and saved as PDF!',
+      type: 'success',
+      duration: 5000
+    });
+  };
+
+  // Start recording for current context
+  const startLectureRecording = () => {
+    if (!selectedSubjectData) {
+      addToast({
+        message: 'Please select a subject first',
+        type: 'warning',
+        duration: 3000
+      });
+      return;
+    }
+
+    const currentTopic = selectedModuleData?.topics.find(t => 
+      t.scheduledDate === new Date().toISOString().split('T')[0]
+    ) || selectedModuleData?.topics[0];
+
+    if (!currentTopic) {
+      addToast({
+        message: 'No topic available for recording',
+        type: 'warning',
+        duration: 3000
+      });
+      return;
+    }
+
+    setShowRecorder(true);
+  };
+
   const handleDateClick = (date: Date) => {
     const dateStr = date.toISOString().split('T')[0];
     setSelectedDate(dateStr);
@@ -255,6 +323,21 @@ const TakeNotesPage: React.FC = () => {
           <p>Organize your study materials and track daily lessons</p>
         </div>
         <div className="header-controls">
+          <button 
+            className="record-lecture-btn"
+            onClick={startLectureRecording}
+            disabled={!selectedSubjectData}
+          >
+            🎙️ Record Lecture
+          </button>
+          {!showInstructions && (
+            <button 
+              className="show-instructions-btn"
+              onClick={() => setShowInstructions(true)}
+            >
+              ❓ Instructions
+            </button>
+          )}
           <ThemeToggle />
           <UserButton 
             appearance={{
@@ -265,6 +348,76 @@ const TakeNotesPage: React.FC = () => {
           />
         </div>
       </div>
+
+      {showInstructions && (
+        <div className="recording-instructions">
+          <div className="instructions-header">
+            <h3>🎙️ How to Use Lecture Recording</h3>
+            <button 
+              className="close-instructions-btn"
+              onClick={() => setShowInstructions(false)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className="instructions-content">
+            <div className="instructions-steps">
+              <div className="instruction-step">
+                <span className="step-number">1</span>
+                <div className="step-content">
+                  <h4>Select a Subject</h4>
+                  <p>Choose Math, Physics, or Chemistry from the sidebar</p>
+                </div>
+              </div>
+              <div className="instruction-step">
+                <span className="step-number">2</span>
+                <div className="step-content">
+                  <h4>Click "🎙️ Record Lecture"</h4>
+                  <p>Find the recording button in the header above</p>
+                </div>
+              </div>
+              <div className="instruction-step">
+                <span className="step-number">3</span>
+                <div className="step-content">
+                  <h4>Grant Microphone Permission</h4>
+                  <p>Allow browser access to your microphone when prompted</p>
+                </div>
+              </div>
+              <div className="instruction-step">
+                <span className="step-number">4</span>
+                <div className="step-content">
+                  <h4>Start Recording & Speak Clearly</h4>
+                  <p>Click start and speak normally into your microphone</p>
+                </div>
+              </div>
+              <div className="instruction-step">
+                <span className="step-number">5</span>
+                <div className="step-content">
+                  <h4>Watch Live Transcription</h4>
+                  <p>See your speech converted to text in real-time</p>
+                </div>
+              </div>
+              <div className="instruction-step">
+                <span className="step-number">6</span>
+                <div className="step-content">
+                  <h4>Stop Recording for PDF</h4>
+                  <p>Click stop to generate and download your lecture notes</p>
+                </div>
+              </div>
+            </div>
+            <div className="instructions-features">
+              <h4>✨ Features:</h4>
+              <ul>
+                <li>🔤 <strong>Real-time Speech-to-Text</strong> - See transcription as you speak</li>
+                <li>📝 <strong>Grammar Correction</strong> - Automatic text improvement</li>
+                <li>📄 <strong>PDF Generation</strong> - Professional lecture notes with metadata</li>
+                <li>⏸️ <strong>Pause/Resume</strong> - Control recording as needed</li>
+                <li>📊 <strong>Subject Context</strong> - Notes linked to specific subjects/topics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="notes-container">
         <div className="notes-sidebar">
@@ -280,16 +433,27 @@ const TakeNotesPage: React.FC = () => {
                     setSelectedModule('');
                   }}
                 >
+                  <div className="subject-icon">
+                    {subjectIcons[subject.id as keyof typeof subjectIcons]}
+                  </div>
                   <div className="subject-info">
                     <h4>{subject.name}</h4>
-                    <p className="teacher-name">{subject.assignedTeacher}</p>
+                    <p className="teacher-name">👩‍🏫 {subject.assignedTeacher}</p>
                     <div className="modules-count">
-                      {subject.modules.length} modules
+                      📚 {subject.modules.length} modules
+                    </div>
+                    <div className="subject-stats">
+                      <span className="total-topics">
+                        📝 {subject.modules.reduce((acc, mod) => acc + mod.topics.length, 0)} topics
+                      </span>
+                      <span className="avg-progress">
+                        📊 {Math.round(subject.modules.reduce((acc, mod) => acc + mod.progress, 0) / subject.modules.length)}% avg
+                      </span>
                     </div>
                   </div>
-                  <div 
-                    className={`subject-color-dot color-${subject.id}`}
-                  />
+                  <div className="subject-action">
+                    <span className="select-indicator">→</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -305,7 +469,13 @@ const TakeNotesPage: React.FC = () => {
                     className={`module-card ${selectedModule === module.id ? 'active' : ''}`}
                     onClick={() => setSelectedModule(module.id)}
                   >
-                    <h4>{module.name}</h4>
+                    <div className="module-header">
+                      <span className="module-icon">{getModuleIcon(module.name)}</span>
+                      <h4>{module.name}</h4>
+                      <div className="module-status">
+                        {module.progress === 100 ? '✅' : module.progress > 0 ? '⏳' : '📋'}
+                      </div>
+                    </div>
                     <div className="module-progress">
                       <div className="progress-bar">
                         <div 
@@ -313,10 +483,15 @@ const TakeNotesPage: React.FC = () => {
                           data-progress={module.progress}
                         />
                       </div>
-                      <span>{module.progress}% complete</span>
+                      <span>📈 {module.progress}% complete</span>
                     </div>
-                    <div className="topics-count">
-                      {module.topics.length} topics
+                    <div className="module-stats">
+                      <span className="topics-count">
+                        📝 {module.topics.length} topics
+                      </span>
+                      <span className="completed-topics">
+                        ✅ {module.topics.filter(t => t.completed).length} done
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -328,31 +503,52 @@ const TakeNotesPage: React.FC = () => {
             <div className="topics-section">
               <h3>Topics</h3>
               <div className="topics-list">
-                {selectedModuleData.topics.map(topic => (
-                  <div
-                    key={topic.id}
-                    className={`topic-card ${topic.completed ? 'completed' : ''}`}
-                    onClick={() => {
-                      if (topic.pdfUrl) {
-                        setCurrentPdfUrl(topic.pdfUrl);
-                        setShowPdfViewer(true);
-                      }
-                    }}
-                  >
-                    <div className="topic-header">
-                      <h5>{topic.name}</h5>
-                      <div className={`topic-status ${topic.completed ? 'completed' : 'pending'}`}>
-                        {topic.completed ? '✓' : '○'}
+                {selectedModuleData.topics.map(topic => {
+                  const difficulty = getTopicDifficulty(topic.name);
+                  return (
+                    <div
+                      key={topic.id}
+                      className={`topic-card ${topic.completed ? 'completed' : ''}`}
+                      onClick={() => {
+                        if (topic.pdfUrl) {
+                          setCurrentPdfUrl(topic.pdfUrl);
+                          setShowPdfViewer(true);
+                        }
+                      }}
+                    >
+                      <div className="topic-header">
+                        <div className="topic-title">
+                          <span className="topic-icon">📄</span>
+                          <h5>{topic.name}</h5>
+                        </div>
+                        <div className="topic-indicators">
+                          <span 
+                            className="difficulty-indicator" 
+                            title={`Difficulty: ${difficulty.level}`}
+                          >
+                            {difficulty.icon}
+                          </span>
+                          <div className={`topic-status ${topic.completed ? 'completed' : 'pending'}`}>
+                            {topic.completed ? '✅' : '🔄'}
+                          </div>
+                        </div>
+                      </div>
+                      <p>{topic.description}</p>
+                      <div className="topic-footer">
+                        {topic.scheduledDate && (
+                          <div className="scheduled-date">
+                            📅 {new Date(topic.scheduledDate).toLocaleDateString()}
+                          </div>
+                        )}
+                        {topic.pdfUrl && (
+                          <div className="has-pdf">
+                            📄 PDF Available
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <p>{topic.description}</p>
-                    {topic.scheduledDate && (
-                      <div className="scheduled-date">
-                        📅 {new Date(topic.scheduledDate).toLocaleDateString()}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -361,38 +557,44 @@ const TakeNotesPage: React.FC = () => {
         <div className="notes-main-content">
           <div className="calendar-section">
             <div className="calendar-header">
-              <h2>
-                {currentDate.toLocaleDateString('en-US', { 
-                  month: 'long', 
-                  year: 'numeric' 
-                })}
-              </h2>
+              <div className="calendar-title">
+                <span className="calendar-icon">📅</span>
+                <h2>
+                  {currentDate.toLocaleDateString('en-US', { 
+                    month: 'long', 
+                    year: 'numeric' 
+                  })}
+                </h2>
+              </div>
               <div className="calendar-navigation">
                 <button
-                  className="nav-btn"
+                  className="nav-btn prev-btn"
                   onClick={() => {
                     const newDate = new Date(currentDate);
                     newDate.setMonth(newDate.getMonth() - 1);
                     setCurrentDate(newDate);
                   }}
+                  title="Previous Month"
                 >
-                  ←
+                  ⬅️
                 </button>
                 <button
                   className="nav-btn today-btn"
                   onClick={() => setCurrentDate(new Date())}
+                  title="Go to Today"
                 >
-                  Today
+                  🏠 Today
                 </button>
                 <button
-                  className="nav-btn"
+                  className="nav-btn next-btn"
                   onClick={() => {
                     const newDate = new Date(currentDate);
                     newDate.setMonth(newDate.getMonth() + 1);
                     setCurrentDate(newDate);
                   }}
+                  title="Next Month"
                 >
-                  →
+                  ➡️
                 </button>
               </div>
             </div>
@@ -423,14 +625,24 @@ const TakeNotesPage: React.FC = () => {
                             hasContent ? 'has-content' : ''
                           } ${selectedDate === date.toISOString().split('T')[0] ? 'selected' : ''}`}
                           onClick={() => handleDateClick(date)}
+                          title={hasContent ? `Click to view: ${dayNote?.topic || topic?.name}` : 'No content for this date'}
                         >
                           <span className="day-number">{date.getDate()}</span>
                           {hasContent && (
                             <div className="day-indicator">
-                              <div className="content-dot" />
+                              <div className="content-icons">
+                                {dayNote && <span className="note-icon" title="Daily Notes">📝</span>}
+                                {topic && <span className="topic-icon" title="Scheduled Topic">📚</span>}
+                                {(dayNote?.pdfUrl || topic?.pdfUrl) && <span className="pdf-icon" title="PDF Available">📄</span>}
+                              </div>
                               <div className="day-preview">
                                 {dayNote?.topic || topic?.name}
                               </div>
+                            </div>
+                          )}
+                          {isToday && (
+                            <div className="today-indicator">
+                              <span>📍</span>
                             </div>
                           )}
                         </div>
@@ -444,7 +656,31 @@ const TakeNotesPage: React.FC = () => {
 
           {selectedDate && (
             <div className="selected-day-details">
-              <h3>Notes for {new Date(selectedDate).toLocaleDateString()}</h3>
+              <div className="day-details-header">
+                <h3>📋 Notes for {new Date(selectedDate).toLocaleDateString()}</h3>
+                <div className="day-actions">
+                  <button 
+                    className="quick-action-btn"
+                    onClick={() => {
+                      addToast({
+                        message: 'Quick add feature coming soon!',
+                        type: 'info',
+                        duration: 3000
+                      });
+                    }}
+                    title="Quick Add Note"
+                  >
+                    ➕ Add
+                  </button>
+                  <button 
+                    className="quick-action-btn"
+                    onClick={() => setSelectedDate('')}
+                    title="Close Details"
+                  >
+                    ✕ Close
+                  </button>
+                </div>
+              </div>
               {(() => {
                 const dayNote = dailyNotes.find(note => note.date === selectedDate);
                 const topic = getTopicForDate(new Date(selectedDate));
@@ -453,7 +689,10 @@ const TakeNotesPage: React.FC = () => {
                   return (
                     <div className="day-note-card">
                       <div className="note-header">
-                        <h4>{dayNote.subject} - {dayNote.topic}</h4>
+                        <div className="note-title">
+                          <span className="note-type-icon">📝</span>
+                          <h4>{dayNote.subject} - {dayNote.topic}</h4>
+                        </div>
                         {dayNote.pdfUrl && (
                           <button
                             className="pdf-btn"
@@ -461,15 +700,22 @@ const TakeNotesPage: React.FC = () => {
                               setCurrentPdfUrl(dayNote.pdfUrl!);
                               setShowPdfViewer(true);
                             }}
+                            title="View PDF Notes"
                           >
                             📄 View Notes
                           </button>
                         )}
                       </div>
-                      <p className="note-content">{dayNote.content}</p>
+                      <div className="note-content-section">
+                        <div className="content-label">📖 Lecture Content:</div>
+                        <p className="note-content">{dayNote.content}</p>
+                      </div>
                       {dayNote.teacherNotes && (
                         <div className="teacher-notes">
-                          <strong>Teacher Notes:</strong>
+                          <div className="teacher-notes-header">
+                            <span className="teacher-icon">👩‍🏫</span>
+                            <strong>Teacher Feedback:</strong>
+                          </div>
                           <p>{dayNote.teacherNotes}</p>
                         </div>
                       )}
@@ -479,7 +725,10 @@ const TakeNotesPage: React.FC = () => {
                   return (
                     <div className="topic-preview-card">
                       <div className="topic-header">
-                        <h4>{topic.name}</h4>
+                        <div className="topic-title">
+                          <span className="topic-type-icon">📚</span>
+                          <h4>{topic.name}</h4>
+                        </div>
                         {topic.pdfUrl && (
                           <button
                             className="pdf-btn"
@@ -487,33 +736,57 @@ const TakeNotesPage: React.FC = () => {
                               setCurrentPdfUrl(topic.pdfUrl!);
                               setShowPdfViewer(true);
                             }}
+                            title="View Topic Materials"
                           >
-                            📄 View Topic Notes
+                            📄 View Materials
                           </button>
                         )}
                       </div>
-                      <p>{topic.description}</p>
-                      <div className={`topic-status ${topic.completed ? 'completed' : 'pending'}`}>
-                        Status: {topic.completed ? 'Completed' : 'Scheduled'}
+                      <div className="topic-description">
+                        <span className="description-icon">📋</span>
+                        <p>{topic.description}</p>
+                      </div>
+                      <div className="topic-status-section">
+                        <div className={`topic-status ${topic.completed ? 'completed' : 'pending'}`}>
+                          <span className="status-icon">{topic.completed ? '✅' : '⏳'}</span>
+                          <span>Status: {topic.completed ? 'Completed' : 'Scheduled'}</span>
+                        </div>
                       </div>
                     </div>
                   );
                 } else {
                   return (
                     <div className="no-content">
+                      <div className="no-content-icon">📝</div>
                       <p>No notes or topics scheduled for this date.</p>
-                      <button 
-                        className="add-note-btn"
-                        onClick={() => {
-                          addToast({
-                            message: 'Note creation feature coming soon!',
-                            type: 'info',
-                            duration: 3000
-                          });
-                        }}
-                      >
-                        + Add Note
-                      </button>
+                      <div className="no-content-actions">
+                        <button 
+                          className="add-note-btn"
+                          onClick={() => {
+                            addToast({
+                              message: 'Note creation feature coming soon!',
+                              type: 'info',
+                              duration: 3000
+                            });
+                          }}
+                          title="Create New Note"
+                        >
+                          ➕ Add Note
+                        </button>
+                        <button 
+                          className="schedule-topic-btn"
+                          onClick={() => {
+                            addToast({
+                              message: 'Topic scheduling feature coming soon!',
+                              type: 'info',
+                              duration: 3000
+                            });
+                          }}
+                          title="Schedule Topic"
+                        >
+                          📅 Schedule Topic
+                        </button>
+                      </div>
                     </div>
                   );
                 }
@@ -522,6 +795,29 @@ const TakeNotesPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {showRecorder && selectedSubjectData && (
+        <div className="recorder-container">
+          <div className="recorder-header-controls">
+            <h3>🎙️ Recording Session</h3>
+            <button 
+              className="close-recorder-btn"
+              onClick={() => setShowRecorder(false)}
+            >
+              ✕ Close
+            </button>
+          </div>
+          <LectureRecorder
+            subject={selectedSubjectData.name}
+            topic={selectedModuleData?.topics.find(t => 
+              t.scheduledDate === new Date().toISOString().split('T')[0]
+            )?.name || selectedModuleData?.topics[0]?.name || 'General Lecture'}
+            date={new Date().toISOString().split('T')[0]}
+            teacherName={selectedSubjectData.assignedTeacher}
+            onRecordingComplete={handleRecordingComplete}
+          />
+        </div>
+      )}
 
       {showPdfViewer && (
         <div className="pdf-viewer-overlay">
