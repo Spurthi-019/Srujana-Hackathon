@@ -1,3 +1,53 @@
+.classroom-page {
+  padding: 40px;
+  text-align: center;
+}
+
+.classroom-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.classroom-input {
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  min-width: 180px;
+}
+
+.classroom-options {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.classroom-option {
+  background: #21a1f3;
+  color: #fff;
+  padding: 32px 36px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(33,161,243,0.08);
+  transition: background 0.2s, transform 0.2s;
+  min-width: 180px;
+  text-align: center;
+}
+.classroom-option:hover {
+  background: #1b8edb;
+  transform: translateY(-4px) scale(1.04);
+}
+
+.classroom-option-page {
+  padding: 40px;
+  text-align: center;
+}
 .teacher-code-input {
   padding: 8px 12px;
   border-radius: 4px;
