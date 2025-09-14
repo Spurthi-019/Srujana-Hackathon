@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './TeacherDashboard.css';
+import '../../mouse-bg-effect.css';
+import { apiService } from '../../services/api';
+import './TeacherDashboardOutworld.css';
 
 interface TeacherInfo {
   name: string;
@@ -29,19 +31,82 @@ interface ScheduledHours {
 }
 
 const TeacherDashboard: React.FC = () => {
-  const { user } = useUser();
+  useEffect(() => {
+    const bg = document.querySelector('.mouse-bg-effect') as HTMLElement;
+    const move = (e: MouseEvent) => {
+      if (bg) {
+        bg.style.setProperty('--x', `${e.clientX}px`);
+        bg.style.setProperty('--y', `${e.clientY}px`);
+      }
+    };
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
   const navigate = useNavigate();
+  const { user, isLoaded } = useUser();
   const [activeTab, setActiveTab] = useState<'overview' | 'schedule' | 'classes'>('overview');
+  const [teacherInfo, setTeacherInfo] = useState<TeacherInfo | null>(null);
+  const [dashboardData, setDashboardData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Mock teacher data - in real app, this would come from API
-  const teacherInfo: TeacherInfo = {
-    name: user?.fullName || 'Professor Smith',
-    employeeId: 'EMP001',
-    department: 'Computer Science',
-    subjects: ['Data Structures', 'Algorithms', 'Web Development', 'Database Systems'],
-    totalClasses: 24,
-    upcomingClasses: 6
-  };
+  useEffect(() => {
+    const loadTeacherData = async () => {
+      if (!isLoaded) return;
+      
+      if (!user) {
+        navigate('/');
+        return;
+      }
+
+      try {
+        // Fetch teacher dashboard data using Clerk ID
+        const dashboardResponse = await apiService.getTeacherDashboard(user.id) as any;
+        setDashboardData(dashboardResponse);
+
+        if (dashboardResponse) {
+          setTeacherInfo({
+            name: user.fullName || user.firstName || 'Teacher',
+            employeeId: user.id,
+            department: 'Computer Science', // Default - you may want to add this to user metadata
+            subjects: ['Programming', 'Data Structures'], // Default - get from backend
+            totalClasses: dashboardResponse?.my_classes?.length || 0,
+            upcomingClasses: dashboardResponse?.my_classes?.filter((c: any) => c.is_active)?.length || 0
+          });
+        }
+      } catch (error) {
+        console.error('Error loading teacher data:', error);
+        // Set default data if API fails
+        setTeacherInfo({
+          name: user.fullName || user.firstName || 'Teacher',
+          employeeId: user.id,
+          department: 'Computer Science',
+          subjects: ['Programming'],
+          totalClasses: 0,
+          upcomingClasses: 0
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadTeacherData();
+  }, [user, isLoaded, navigate]);
+
+  if (isLoading) {
+    return (
+      <div className="teacher-dashboard">
+        <div className="loading-state">Loading dashboard...</div>
+      </div>
+    );
+  }
+
+  if (!teacherInfo) {
+    return (
+      <div className="teacher-dashboard">
+        <div className="error-state">Failed to load dashboard data</div>
+      </div>
+    );
+  }
 
   const todaySchedule: ClassSchedule[] = [
     {

@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug React App",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
+      "env": {
+        "PORT": "3001",
+        "BROWSER": "none",
+        "GENERATE_SOURCEMAP": "true",
+        "REACT_APP_DEBUG": "true"
+      },
+      "console": "integratedTerminal",
+      "restart": true,
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "Debug Flask Backend", 
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/detect/main_clerk.py",
+      "cwd": "${workspaceFolder}/detect",
+      "env": {
+        "FLASK_ENV": "development",
+        "FLASK_DEBUG": "1",
+        "PYTHONPATH": "${workspaceFolder}/detect"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "django": false,
+      "autoReload": {
+        "enable": true
+      }
+    },
+    {
+      "name": "Debug API Only",
+      "type": "debugpy", 
+      "request": "launch",
+      "program": "${workspaceFolder}/detect/main_clerk.py",
+      "cwd": "${workspaceFolder}/detect",
+      "env": {
+        "FLASK_ENV": "development",
+        "FLASK_DEBUG": "1"
+      },
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Full Stack",
+      "configurations": ["Debug Flask Backend", "Debug React App"],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "full-stack",
+        "order": 1
+      }
+    }
+  ]
+}

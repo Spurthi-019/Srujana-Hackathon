@@ -1,0 +1,148 @@
+/* === Animated Mesh Background for Enhanced App === */
+body::before {
+	content: '';
+	position: fixed;
+	top: 0; left: 0; width: 100vw; height: 100vh;
+	z-index: 0;
+	pointer-events: none;
+	background: var(--gradient-mesh);
+	opacity: 0.7;
+	animation: meshMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
+}
+
+/* === Universal Transitions for Interactive Elements === */
+button, .btn, .card, .input, input, select, textarea {
+	transition: 
+		background 0.25s cubic-bezier(.4,2,.6,1),
+		color 0.18s cubic-bezier(.4,2,.6,1),
+		box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+		transform 0.18s cubic-bezier(.4,2,.6,1);
+}
+
+/* === Button Micro-Interactions === */
+button:active, .btn:active {
+	transform: scale(0.97) translateY(1px);
+	box-shadow: 0 2px 8px var(--primary-300), 0 1.5px 0 #fff3;
+}
+
+button:hover, .btn:hover {
+	background: var(--gradient-secondary);
+	color: var(--text-inverse);
+	box-shadow: 0 8px 32px var(--primary-200), 0 1.5px 0 #fff3;
+}
+
+/* === Card Hover Effects === */
+.card {
+	box-shadow: var(--shadow-md);
+	background: var(--gradient-glass);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
+.card:hover {
+	box-shadow: var(--shadow-glow-lg);
+	transform: scale(1.03) translateY(-4px) rotateZ(-0.5deg);
+	border-color: var(--accent-cyan);
+}
+
+/* === Input Focus Effects === */
+input:focus, select:focus, textarea:focus, .input:focus {
+	outline: none;
+	border-color: var(--accent-purple);
+	box-shadow: 0 0 0 3px var(--accent-purple), 0 2px 8px var(--primary-200);
+}
+
+/* === Section Fade/Slide Animations === */
+.fade-in {
+	animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(30px); }
+	to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+	animation: slideIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes slideIn {
+	from { opacity: 0; transform: translateX(-40px); }
+	to { opacity: 1; transform: none; }
+}
+/* === Animated Mesh Background for Enhanced App === */
+body::before {
+	content: '';
+	position: fixed;
+	top: 0; left: 0; width: 100vw; height: 100vh;
+	z-index: 0;
+	pointer-events: none;
+	background: var(--gradient-mesh);
+	opacity: 0.7;
+	animation: meshMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+	0% { background-position: 0% 50%; }
+	100% { background-position: 100% 50%; }
+}
+
+/* === Universal Transitions for Interactive Elements === */
+button, .btn, .card, .input, input, select, textarea {
+	transition: 
+		background 0.25s cubic-bezier(.4,2,.6,1),
+		color 0.18s cubic-bezier(.4,2,.6,1),
+		box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+		transform 0.18s cubic-bezier(.4,2,.6,1);
+}
+
+/* === Button Micro-Interactions === */
+button:active, .btn:active {
+	transform: scale(0.97) translateY(1px);
+	box-shadow: 0 2px 8px var(--primary-300), 0 1.5px 0 #fff3;
+}
+
+button:hover, .btn:hover {
+	background: var(--gradient-secondary);
+	color: var(--text-inverse);
+	box-shadow: 0 8px 32px var(--primary-200), 0 1.5px 0 #fff3;
+}
+
+/* === Card Hover Effects === */
+.card {
+	box-shadow: var(--shadow-md);
+	background: var(--gradient-glass);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
+.card:hover {
+	box-shadow: var(--shadow-glow-lg);
+	transform: scale(1.03) translateY(-4px) rotateZ(-0.5deg);
+	border-color: var(--accent-cyan);
+}
+
+/* === Input Focus Effects === */
+input:focus, select:focus, textarea:focus, .input:focus {
+	outline: none;
+	border-color: var(--accent-purple);
+	box-shadow: 0 0 0 3px var(--accent-purple), 0 2px 8px var(--primary-200);
+}
+
+/* === Section Fade/Slide Animations === */
+.fade-in {
+	animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(30px); }
+	to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+	animation: slideIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes slideIn {
+	from { opacity: 0; transform: translateX(-40px); }
+	to { opacity: 1; transform: none; }
+}

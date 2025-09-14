@@ -1,6 +1,9 @@
+import { useUser } from '@clerk/clerk-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiService } from '../../services/api';
 import './CreateClass.css';
+import './SchedulePlanner.css';
 
 interface ClassFormData {
   className: string;
@@ -21,6 +24,7 @@ interface ScheduleEntry {
 
 const CreateClass: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
   const [currentStep, setCurrentStep] = useState<'basic' | 'files' | 'schedule'>('basic');
   const [formData, setFormData] = useState<ClassFormData>({
     className: '',
@@ -379,20 +383,55 @@ const CreateClass: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
-    // Generate class code
-    const teacherInitials = 'PS'; // This would come from the user's name
-    const departmentCode = formData.department.substring(0, 2).toUpperCase();
-    const classCode = `${departmentCode}_${formData.classLevel.replace(/\s+/g, '')}_${formData.subject.replace(/\s+/g, '')}_${teacherInitials}`;
-    
-    // Navigate to confirmation page with data
-    navigate('/teacher/class-confirmation', { 
-      state: { 
-        formData, 
-        schedule, 
-        classCode 
-      } 
-    });
+  const handleSubmit = async () => {
+    if (!user) {
+      alert('User not authenticated');
+      return;
+    }
+
+    try {
+      // Get teacher information from Clerk user
+      const userEmail = user.emailAddresses[0]?.emailAddress || '';
+      
+      if (!userEmail) {
+        alert('Please complete your profile information');
+        return;
+      }
+
+      // Use a default college name or get from form data
+      const collegeName = "Default College"; // You may want to add this to form data
+      
+      // Generate class ID based on our format
+      const departmentCode = formData.department.substring(0, 2).toUpperCase();
+      const classroomId = `${collegeName.replace(/\s+/g, '')}_${departmentCode}_${formData.classLevel.replace(/\s+/g, '')}_${user.id}`;
+      
+      // Create class using backend API
+      const classData = {
+        classroom_id: classroomId,
+        teacher_clerk_id: user.id,
+        college_name: collegeName,
+        subject: formData.subject,
+        max_students: 60 // Default value
+      };
+
+      const response = await apiService.createClass(classData) as any;
+      
+      if (response.success) {
+        // Navigate to confirmation page with data
+        navigate('/teacher/class-confirmation', { 
+          state: { 
+            formData, 
+            schedule, 
+            classCode: classroomId,
+            response
+          } 
+        });
+      } else {
+        alert('Failed to create class: ' + (response.error || 'Unknown error'));
+      }
+    } catch (error: any) {
+      alert('Error creating class: ' + error.message);
+    }
   };
 
   const renderStepContent = () => {

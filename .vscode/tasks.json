@@ -4,13 +4,107 @@
 		{
 			"label": "Start React App (Debug)",
 			"type": "shell",
-			"command": "npm start",
-			"args": [],
+			"command": "npm",
+			"args": ["start"],
+			"options": {
+				"env": {
+					"PORT": "3001",
+					"BROWSER": "none",
+					"GENERATE_SOURCEMAP": "true",
+					"REACT_APP_DEBUG": "true"
+				}
+			},
 			"isBackground": true,
-			"problemMatcher": [
-				"$tsc"
-			],
-			"group": "build"
+			"problemMatcher": ["$tsc"],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"label": "Start Flask Backend (Debug)",
+			"type": "shell",
+			"command": "python",
+			"args": ["-m", "flask", "run", "--debug", "--host=127.0.0.1", "--port=5000"],
+			"options": {
+				"cwd": "${workspaceFolder}/detect",
+				"env": {
+					"FLASK_APP": "main_clerk.py",
+					"FLASK_ENV": "development",
+					"FLASK_DEBUG": "1",
+					"PYTHONPATH": "${workspaceFolder}/detect"
+				}
+			},
+			"group": "build",
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": false
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Install Dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": ["install"],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Type Check",
+			"type": "shell", 
+			"command": "npx",
+			"args": ["tsc", "--noEmit"],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": ["$tsc"]
+		},
+		{
+			"label": "Build React App",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "build"],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": ["$tsc"]
+		},
+		{
+			"label": "Kill All Processes",
+			"type": "shell",
+			"command": "powershell",
+			"args": ["-Command", "Stop-Process -Name node,python -Force -ErrorAction SilentlyContinue"],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
 		}
 	]
 }

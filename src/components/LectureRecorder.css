@@ -1,3 +1,57 @@
+/* === Premium Lecture Recorder UI === */
+.lecture-recorder {
+  background: var(--gradient-glass);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  border-radius: 18px;
+  transition: background 0.22s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+}
+.lecture-recorder:hover {
+  box-shadow: var(--shadow-glow-lg);
+  transform: scale(1.03) translateY(-2px);
+}
+.recorder-btn {
+  transition: background 0.22s cubic-bezier(.4,2,.6,1),
+    color 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+}
+.recorder-btn:hover {
+  background: var(--gradient-secondary);
+  color: var(--text-inverse);
+  box-shadow: 0 8px 32px var(--primary-200);
+  transform: scale(1.06);
+}
+/* === Premium Lecture Recorder UI === */
+.lecture-recorder {
+  background: var(--gradient-glass);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  border-radius: 18px;
+  transition: background 0.22s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+}
+.lecture-recorder:hover {
+  box-shadow: var(--shadow-glow-lg);
+  transform: scale(1.03) translateY(-2px);
+}
+.recorder-btn {
+  transition: background 0.22s cubic-bezier(.4,2,.6,1),
+    color 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+}
+.recorder-btn:hover {
+  background: var(--gradient-secondary);
+  color: var(--text-inverse);
+  box-shadow: 0 8px 32px var(--primary-200);
+  transform: scale(1.06);
+}
 /* Lecture Recorder Styles */
 .lecture-recorder {
   background: var(--card-background);

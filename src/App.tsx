@@ -193,8 +193,8 @@ function App() {
 
   if (!isLoaded) {
     return (
-      <div className="loading-overlay">
-        <LoadingSpinner size="large" color="white" text="Loading..." />
+      <div className="loading-container">
+        <LoadingSpinner />
       </div>
     );
   }

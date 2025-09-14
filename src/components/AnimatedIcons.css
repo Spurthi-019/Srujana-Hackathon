@@ -1,3 +1,49 @@
+/* === Premium Animated Icon Styles === */
+.animated-icon {
+  display: inline-block;
+  transition: color 0.22s cubic-bezier(.4,2,.6,1),
+    filter 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+  filter: drop-shadow(0 2px 8px var(--primary-200));
+  color: var(--accent-cyan);
+  cursor: pointer;
+}
+.animated-icon:hover {
+  color: var(--accent-pink);
+  filter: drop-shadow(0 0 8px var(--accent-pink-100)) drop-shadow(0 2px 16px var(--primary-100));
+  transform: scale(1.12) rotateZ(-3deg);
+}
+.animated-icon:active {
+  color: var(--accent-yellow);
+  filter: drop-shadow(0 0 8px var(--accent-yellow-100));
+  transform: scale(0.97);
+}
+/* === Animated Icon Micro-Interactions === */
+.animated-icon {
+  transition: transform 0.22s cubic-bezier(.4,2,.6,1), filter 0.18s cubic-bezier(.4,2,.6,1);
+  will-change: transform, filter;
+}
+.animated-icon:hover {
+  transform: scale(1.12) rotateZ(-2deg);
+  filter: drop-shadow(0 4px 16px var(--accent-cyan));
+}
+.animated-icon:active {
+  transform: scale(0.96) rotateZ(1deg);
+  filter: drop-shadow(0 2px 8px var(--accent-purple));
+}
+/* === Animated Icon Micro-Interactions === */
+.animated-icon {
+  transition: transform 0.22s cubic-bezier(.4,2,.6,1), filter 0.18s cubic-bezier(.4,2,.6,1);
+  will-change: transform, filter;
+}
+.animated-icon:hover {
+  transform: scale(1.12) rotateZ(-2deg);
+  filter: drop-shadow(0 4px 16px var(--accent-cyan));
+}
+.animated-icon:active {
+  transform: scale(0.96) rotateZ(1deg);
+  filter: drop-shadow(0 2px 8px var(--accent-purple));
+}
 /* Animated Icons Styles */
 .animated-icon {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

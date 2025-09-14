@@ -1,3 +1,51 @@
+/* === Premium Create Class Styles === */
+.create-class-main::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--gradient-mesh);
+  opacity: 0.8;
+  animation: meshMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.create-class-card {
+  transition: background 0.25s cubic-bezier(.4,2,.6,1),
+    color 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+  box-shadow: var(--shadow-md);
+  background: var(--gradient-glass);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.create-class-card:hover {
+  box-shadow: var(--shadow-glow-lg);
+  transform: scale(1.03) translateY(-4px) rotateZ(-0.5deg);
+  border-color: var(--accent-cyan);
+}
+
+.fade-in {
+  animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+  animation: slideIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
 .create-class {
   min-height: 100vh;
   background: var(--bg-primary);

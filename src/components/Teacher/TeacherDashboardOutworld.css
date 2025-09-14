@@ -1,0 +1,301 @@
+/* === Animated Mesh Background for Teacher Dashboard === */
+.teacher-dashboard-main::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--gradient-mesh);
+  opacity: 0.8;
+  animation: meshMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* === Card and Button Hover Effects === */
+.teacher-dashboard-card, .teacher-dashboard-btn {
+  transition: background 0.25s cubic-bezier(.4,2,.6,1),
+    color 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+  box-shadow: var(--shadow-md);
+  background: var(--gradient-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.teacher-dashboard-card:hover, .teacher-dashboard-btn:hover {
+  box-shadow: var(--shadow-glow-lg);
+  transform: scale(1.03) translateY(-4px) rotateZ(-0.5deg);
+  border-color: var(--accent-cyan);
+}
+
+/* === Micro-Interactions for Buttons === */
+.teacher-dashboard-btn:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: 0 2px 8px var(--primary-300), 0 1.5px 0 #fff3;
+}
+
+/* === Section Fade/Slide Animations === */
+.fade-in {
+  animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+  animation: slideIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
+/* === Animated Mesh Background for Teacher Dashboard === */
+.teacher-dashboard-main::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--gradient-mesh);
+  opacity: 0.8;
+  animation: meshMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* === Card and Button Hover Effects === */
+.teacher-dashboard-card, .teacher-dashboard-btn {
+  transition: background 0.25s cubic-bezier(.4,2,.6,1),
+    color 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+  box-shadow: var(--shadow-md);
+  background: var(--gradient-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.teacher-dashboard-card:hover, .teacher-dashboard-btn:hover {
+  box-shadow: var(--shadow-glow-lg);
+  transform: scale(1.03) translateY(-4px) rotateZ(-0.5deg);
+  border-color: var(--accent-cyan);
+}
+
+/* === Micro-Interactions for Buttons === */
+.teacher-dashboard-btn:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: 0 2px 8px var(--primary-300), 0 1.5px 0 #fff3;
+}
+
+/* === Section Fade/Slide Animations === */
+.fade-in {
+  animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+  animation: slideIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
+/* === Animated Mesh Background for Dashboard === */
+.dashboard-outworld::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--gradient-mesh);
+  opacity: 0.8;
+  animation: meshMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* === Card and Button Hover Effects === */
+.dashboard-card, .dashboard-btn {
+  transition: background 0.25s cubic-bezier(.4,2,.6,1),
+    color 0.18s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.22s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1);
+  box-shadow: var(--shadow-md);
+  background: var(--gradient-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.dashboard-card:hover, .dashboard-btn:hover {
+  box-shadow: var(--shadow-glow-lg);
+  transform: scale(1.03) translateY(-4px) rotateZ(-0.5deg);
+  border-color: var(--accent-cyan);
+}
+
+/* === Micro-Interactions for Buttons === */
+.dashboard-btn:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: 0 2px 8px var(--primary-300), 0 1.5px 0 #fff3;
+}
+
+/* === Section Fade/Slide Animations === */
+.fade-in {
+  animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+  animation: slideIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
+.teacher-dashboard {
+  min-height: 100vh;
+  padding: 3rem 0 5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 #1e3c7266, 0 1.5px 0 #fff3;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+
+.welcome-section h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 0.7rem;
+  text-shadow: 0 4px 32px #000a, 0 1px 0 #fff3;
+  background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-section p {
+  color: #fff;
+  font-size: 1.2rem;
+  text-shadow: 0 1px 0 #0003;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.notification-badge {
+  position: relative;
+  padding: 1.1rem;
+  background: rgba(0, 102, 204, 0.18);
+  border-radius: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px #2a529888;
+}
+
+.notification-badge:hover {
+  background: #ffd200;
+  color: #1e3c72;
+  transform: scale(1.08);
+}
+
+.badge-icon {
+  font-size: 1.7rem;
+}
+
+.badge-count {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #f7971e;
+  color: #fff;
+  border-radius: 50%;
+  padding: 0.2rem 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px #f7971e99;
+}
+
+.dashboard-navigation {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+}
+
+.nav-tab {
+  background: rgba(255,255,255,0.12);
+  border: none;
+  border-radius: 1.2rem;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px #2a529888;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.nav-tab.active, .nav-tab:hover {
+  background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
+  color: #1e3c72;
+  transform: scale(1.08);
+}
+
+.tab-icon {
+  font-size: 1.3rem;
+}
+
+@media (max-width: 800px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+  }
+  .welcome-section h1 {
+    font-size: 1.5rem;
+  }
+  .dashboard-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav-tab {
+    width: 100%;
+    justify-content: center;
+  }
+}
