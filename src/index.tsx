@@ -1,30 +1,33 @@
 import { ClerkProvider } from '@clerk/clerk-react';
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
-import AttendanceResultsPage from './AttendanceResultsPage';
-import ClassLeaderboardPage from './ClassLeaderboardPage';
-import ClassroomPage from './ClassroomPage';
-import GenerateQuizPage from './GenerateQuizPage';
-import StudentDashboard from './StudentDashboard';
-import TakeAttendancePage from './TakeAttendancePage';
-import ClassNotes from './components/ClassNotes';
+import LoadingSpinner from './components/LoadingSpinner';
 import ProtectedRoute from './components/ProtectedRoute';
-import ClassConfirmation from './components/Teacher/ClassConfirmation';
-import CreateClass from './components/Teacher/CreateClass';
-import TeacherDashboard from './components/Teacher/TeacherDashboard';
 import ToastContainer from './components/ToastContainer';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ToastProvider } from './contexts/ToastContext';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-// Import your Publishable Key
-const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+// Lazy load components to reduce initial bundle size
+const StudentDashboard = lazy(() => import('./StudentDashboard'));
+const TeacherDashboard = lazy(() => import('./components/Teacher/TeacherDashboard'));
+const CreateClass = lazy(() => import('./components/Teacher/CreateClass'));
+const ClassConfirmation = lazy(() => import('./components/Teacher/ClassConfirmation'));
+const ClassroomPage = lazy(() => import('./ClassroomPage'));
+const TakeAttendancePage = lazy(() => import('./TakeAttendancePage'));
+const AttendanceResultsPage = lazy(() => import('./AttendanceResultsPage'));
+const GenerateQuizPage = lazy(() => import('./GenerateQuizPage'));
+const ClassNotes = lazy(() => import('./components/ClassNotes'));
+const ClassLeaderboardPage = lazy(() => import('./ClassLeaderboardPage'));
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Add your Clerk Publishable Key to the .env file');
+// Import your Publishable Key
+const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY || 'pk_test_demo_key_placeholder';
+
+if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
+  console.warn('Clerk Publishable Key not found. Authentication will not work properly.');
 }
 
 const root = ReactDOM.createRoot(
@@ -41,52 +44,72 @@ root.render(
               <Route path="/" element={<App />} />
               <Route path="/student/dashboard" element={
                 <ProtectedRoute>
-                  <StudentDashboard />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <StudentDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/teacher/dashboard" element={
                 <ProtectedRoute>
-                  <TeacherDashboard />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <TeacherDashboard />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/teacher/create-class" element={
                 <ProtectedRoute>
-                  <CreateClass />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <CreateClass />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/teacher/class-confirmation" element={
                 <ProtectedRoute>
-                  <ClassConfirmation />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ClassConfirmation />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code" element={
                 <ProtectedRoute>
-                  <ClassroomPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ClassroomPage />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/attendance" element={
                 <ProtectedRoute>
-                  <TakeAttendancePage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <TakeAttendancePage />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/attendance/results" element={
                 <ProtectedRoute>
-                  <AttendanceResultsPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <AttendanceResultsPage />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/quiz" element={
                 <ProtectedRoute>
-                  <GenerateQuizPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <GenerateQuizPage />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/notes" element={
                 <ProtectedRoute>
-                  <ClassNotes />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ClassNotes />
+                  </Suspense>
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/leaderboard" element={
                 <ProtectedRoute>
-                  <ClassLeaderboardPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ClassLeaderboardPage />
+                  </Suspense>
                 </ProtectedRoute>
               } />
             </Routes>
