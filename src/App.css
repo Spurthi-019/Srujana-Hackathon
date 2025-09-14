@@ -1635,11 +1635,53 @@ p {
 }
 
 .site-title {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 800;
   font-family: var(--font-heading);
-  color: var(--accent-color);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
+  position: relative;
+  letter-spacing: -0.02em;
+  animation: gradientShift 3s ease-in-out infinite;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.site-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 8px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(10px);
+}
+
+.site-title:hover {
+  transform: translateY(-2px) scale(1.02);
+  text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+}
+
+.site-title:hover::before {
+  opacity: 0.1;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .header-controls {
@@ -2474,7 +2516,14 @@ p {
   }
   
   .site-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
   }
   
   .main-content {
@@ -2569,7 +2618,15 @@ p {
   }
   
   .site-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+    letter-spacing: -0.01em;
   }
   
   .classroom-section,
@@ -2678,7 +2735,7 @@ p {
 .classroom-page {
   padding: 40px 20px;
   min-height: 100vh;
-  background: url('./assets/background.jpg') center/cover no-repeat, var(--bg-primary);
+  background: var(--bg-primary);
   position: relative;
   overflow-x: hidden;
 }
@@ -3448,7 +3505,7 @@ p {
 /* Landing page styles */
 .landing-container {
   min-height: 100vh;
-  background: url('./assets/background.jpg') center/cover no-repeat, var(--bg-primary);
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -3606,20 +3663,126 @@ p {
 .form-select,
 .form-input {
   padding: 1rem;
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   font-size: 1rem;
-  background: var(--bg-input);
+  background: var(--surface-card);
   color: var(--text-primary);
   transition: all 0.3s ease;
   outline: none;
+  position: relative;
+  /* Enhanced dropdown visibility - CSS-only arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%), linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 3rem;
+  cursor: pointer;
+  /* Ensure high visibility */
+  min-height: 3rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced hover and focus states */
+.form-select:hover {
+  border-color: var(--accent-cyan);
+  background-color: rgba(79, 172, 254, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .form-select:focus,
 .form-input:focus {
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1), 0 4px 20px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
+  background-color: var(--surface-elevated);
+}
+
+/* Enhanced dropdown options */
+.form-select option {
+  padding: 0.8rem 1rem;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  min-height: 2.5rem;
+  line-height: 1.5;
+}
+
+.form-select option:hover,
+.form-select option:focus,
+.form-select option:checked {
+  background: var(--accent-cyan);
+  color: var(--text-inverse);
+  font-weight: 600;
+}
+
+/* Dark mode support for dropdowns */
+@media (prefers-color-scheme: dark) {
+  .form-select,
+  .form-input {
+    background: var(--surface-card);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    background-image: linear-gradient(45deg, transparent 50%, #ccc 50%), linear-gradient(135deg, #ccc 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  
+  .form-select option {
+    background: var(--surface-elevated);
+    color: var(--text-primary);
+  }
+  
+  .form-select:focus {
+    background: var(--surface-elevated);
+    border-color: var(--accent-cyan);
+    background-image: linear-gradient(45deg, transparent 50%, #ccc 50%), linear-gradient(135deg, #ccc 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  
+  .form-select option:hover,
+  .form-select option:focus,
+  .form-select option:checked {
+    background: var(--accent-cyan);
+    color: var(--text-inverse);
+  }
+}
+
+/* Theme-specific dropdown styles */
+[data-theme="dark"] .form-select {
+  background: var(--surface-card);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  background-image: linear-gradient(45deg, transparent 50%, #ccc 50%), linear-gradient(135deg, #ccc 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+[data-theme="dark"] .form-select option {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-select:focus {
+  background: var(--surface-elevated);
+  border-color: var(--accent-cyan);
+}
+
+[data-theme="dark"] .form-select option:hover,
+[data-theme="dark"] .form-select option:focus,
+[data-theme="dark"] .form-select option:checked {
+  background: var(--accent-cyan);
+  color: var(--text-inverse);
 }
 
 .unified-code-display {

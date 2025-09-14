@@ -1,0 +1,21 @@
+# Midterm Study Guide
+## Comprehensive Review
+
+Study guide covering all topics for the midterm examination.
+
+Subjects included:
+- Mathematics: Calculus fundamentals
+- Physics: Electromagnetic theory
+- Chemistry: Organic synthesis
+
+Key formulas and concepts:
+- Derivative rules
+- Maxwell's equations
+- Reaction mechanisms
+
+Study tips:
+- Review lecture notes
+- Practice problem sets
+- Form study groups
+
+Note: In a real application, this would be a PDF file.

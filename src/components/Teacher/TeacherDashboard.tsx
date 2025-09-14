@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../mouse-bg-effect.css';
 import { apiService } from '../../services/api';
-import './TeacherDashboardOutworld.css';
+import ThemeToggle from '../ThemeToggle';
+import './TeacherDashboard.css';
 
 interface TeacherInfo {
   name: string;
@@ -46,7 +47,6 @@ const TeacherDashboard: React.FC = () => {
   const { user, isLoaded } = useUser();
   const [activeTab, setActiveTab] = useState<'overview' | 'schedule' | 'classes'>('overview');
   const [teacherInfo, setTeacherInfo] = useState<TeacherInfo | null>(null);
-  const [dashboardData, setDashboardData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -61,7 +61,6 @@ const TeacherDashboard: React.FC = () => {
       try {
         // Fetch teacher dashboard data using Clerk ID
         const dashboardResponse = await apiService.getTeacherDashboard(user.id) as any;
-        setDashboardData(dashboardResponse);
 
         if (dashboardResponse) {
           setTeacherInfo({
@@ -147,7 +146,7 @@ const TeacherDashboard: React.FC = () => {
   };
 
   const handleManageSchedule = () => {
-    navigate('/teacher/manage-schedule');
+    navigate('/teacher/schedule-planner');
   };
 
   const renderOverview = () => (
@@ -348,6 +347,7 @@ const TeacherDashboard: React.FC = () => {
           <p>Manage your classes, schedules, and course materials</p>
         </div>
         <div className="header-actions">
+          <ThemeToggle />
           <div className="notification-badge">
             <span className="badge-icon">🔔</span>
             <span className="badge-count">3</span>

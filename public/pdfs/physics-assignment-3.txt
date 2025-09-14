@@ -1,0 +1,14 @@
+# Physics Assignment #3
+## Electromagnetic Fields
+
+Assignment instructions and problem set for Physics class.
+
+Problems:
+1. Calculate the magnetic field strength
+2. Determine electric potential
+3. Analyze circuit diagrams
+4. Solve for electromagnetic wave properties
+
+Due date: September 16, 2025 at 11:59 PM
+
+Note: In a real application, this would be a PDF file.

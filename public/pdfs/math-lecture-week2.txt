@@ -1,0 +1,14 @@
+# Math Lecture - Week 2
+## Calculus Fundamentals
+
+This would be the actual PDF content for the Math Lecture.
+
+Topics covered:
+- Derivatives and their applications
+- Chain rule
+- Product rule
+- Quotient rule
+
+Practice problems and solutions included.
+
+Note: In a real application, this would be a PDF file.

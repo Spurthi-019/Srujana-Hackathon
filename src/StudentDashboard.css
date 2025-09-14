@@ -169,7 +169,7 @@
 /* Student Dashboard Styles */
 .student-dashboard {
   min-height: 100vh;
-  background: url('./assets/background.jpg') center/cover no-repeat, var(--bg-primary);
+  background: var(--bg-primary);
   position: relative;
 }
 
@@ -834,5 +834,122 @@
     grid-template-columns: 1fr;
     gap: 0.5rem;
     text-align: center;
+  }
+}
+
+/* === Enhanced Student Dashboard Dropdown Styles === */
+.month-selector,
+.subject-selector,
+.semester-selector,
+.period-selector,
+.category-selector,
+.filter-select,
+select {
+  padding: 0.8rem 1.2rem;
+  padding-right: 3rem;
+  background: var(--gradient-glass);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+  outline: none;
+  cursor: pointer;
+  min-height: 3rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Custom dropdown arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23cccccc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+}
+
+.month-selector:hover,
+.subject-selector:hover,
+.semester-selector:hover,
+.period-selector:hover,
+.category-selector:hover,
+.filter-select:hover,
+select:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(79, 172, 254, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+}
+
+.month-selector:focus,
+.subject-selector:focus,
+.semester-selector:focus,
+.period-selector:focus,
+.category-selector:focus,
+.filter-select:focus,
+select:focus {
+  border-color: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2), 0 12px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Enhanced dropdown options */
+.month-selector option,
+.subject-selector option,
+.semester-selector option,
+.period-selector option,
+.category-selector option,
+.filter-select option,
+select option {
+  padding: 0.8rem 1rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  min-height: 3rem;
+}
+
+.month-selector option:checked,
+.subject-selector option:checked,
+.semester-selector option:checked,
+.period-selector option:checked,
+.category-selector option:checked,
+.filter-select option:checked,
+select option:checked {
+  background: var(--accent-cyan);
+  color: white;
+  font-weight: 600;
+}
+
+/* Specific student dashboard styling */
+.student-dashboard select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(79, 172, 254, 0.3);
+}
+
+.student-dashboard select:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent-cyan);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .month-selector,
+  .subject-selector,
+  .semester-selector,
+  .period-selector,
+  .category-selector,
+  .filter-select,
+  select {
+    padding: 0.6rem 1rem;
+    padding-right: 2.5rem;
+    font-size: 0.9rem;
+    min-height: 2.5rem;
+    background-size: 1rem;
   }
 }

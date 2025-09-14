@@ -1,0 +1,17 @@
+# Chemistry Lab Procedures
+## Organic Synthesis Lab
+
+Detailed laboratory procedures for organic chemistry synthesis.
+
+Safety guidelines:
+- Wear protective equipment
+- Handle chemicals properly
+- Follow ventilation protocols
+
+Experimental procedure:
+1. Prepare reaction mixture
+2. Monitor temperature
+3. Purify product
+4. Analyze results
+
+Note: In a real application, this would be a PDF file.

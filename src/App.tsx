@@ -1,12 +1,12 @@
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
-import ThemeToggle from './components/ThemeToggle';
-import LoadingSpinner from './components/LoadingSpinner';
-import { ArrowRightIcon, UserIcon, AcademicCapIcon, UserGroupIcon } from './components/AnimatedIcons';
-import { useToast } from './contexts/ToastContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { AcademicCapIcon, ArrowRightIcon, UserGroupIcon, UserIcon } from './components/AnimatedIcons';
+import LoadingSpinner from './components/LoadingSpinner';
+import ThemeToggle from './components/ThemeToggle';
+import { useToast } from './contexts/ToastContext';
 
 const colleges = ['College of Engineering', 'College of Science', 'College of Arts'];
 const blocks = ['Block A', 'Block B', 'Block C'];
@@ -202,7 +202,7 @@ function App() {
   return (
     <div className="landing-container">
       <header className="landing-header">
-        <div className="site-title">EduHub Pro</div>
+        <div className="site-title">ClassTrack</div>
         <div className="header-controls">
           <ThemeToggle />
           {isSignedIn && (
@@ -223,7 +223,7 @@ function App() {
           <div className="classroom-section">
             <div className="section-header">
               <h1>Enter Classroom</h1>
-              <p>Join your virtual classroom with the classroom code</p>
+              <p>Join with code</p>
             </div>
 
             <div className="classroom-form">

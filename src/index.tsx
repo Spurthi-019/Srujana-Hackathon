@@ -1,24 +1,24 @@
+import { ClerkProvider } from '@clerk/clerk-react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
-import ClassroomPage from './ClassroomPage';
-import StudentDashboard from './StudentDashboard';
-import TeacherDashboard from './components/Teacher/TeacherDashboard';
-import CreateClass from './components/Teacher/CreateClass';
-import ClassConfirmation from './components/Teacher/ClassConfirmation';
-import TakeAttendancePage from './TakeAttendancePage';
 import AttendanceResultsPage from './AttendanceResultsPage';
-import GenerateQuizPage from './GenerateQuizPage';
-import TakeNotesPage from './TakeNotesPage';
 import ClassLeaderboardPage from './ClassLeaderboardPage';
+import ClassroomPage from './ClassroomPage';
+import GenerateQuizPage from './GenerateQuizPage';
+import StudentDashboard from './StudentDashboard';
+import TakeAttendancePage from './TakeAttendancePage';
+import ClassNotes from './components/ClassNotes';
 import ProtectedRoute from './components/ProtectedRoute';
+import ClassConfirmation from './components/Teacher/ClassConfirmation';
+import CreateClass from './components/Teacher/CreateClass';
+import TeacherDashboard from './components/Teacher/TeacherDashboard';
 import ToastContainer from './components/ToastContainer';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ToastProvider } from './contexts/ToastContext';
-import { ClerkProvider } from '@clerk/clerk-react';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
@@ -81,7 +81,7 @@ root.render(
               } />
               <Route path="/classroom/:code/notes" element={
                 <ProtectedRoute>
-                  <TakeNotesPage />
+                  <ClassNotes />
                 </ProtectedRoute>
               } />
               <Route path="/classroom/:code/leaderboard" element={
