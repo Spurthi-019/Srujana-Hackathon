@@ -29,13 +29,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "set CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "auto-commit": "node auto-commit.js --commit",
     "auto-commit-start": "node auto-commit.js --start",
     "git-push": "powershell.exe -ExecutionPolicy Bypass -File auto-commit.ps1",
-    "vercel-build": "CI=false npm run build"
+    "vercel-build": "set CI=false && npm run build"
   },
   "eslintConfig": {
     "extends": [

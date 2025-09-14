@@ -1,0 +1,122 @@
+/* Performance Optimization CSS */
+
+/* Enable hardware acceleration for smooth animations */
+.performance-optimized {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+  .smooth-transition {
+    transition: all 0.2s ease-out;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize heavy components */
+.heavy-component {
+  contain: layout style paint;
+}
+
+/* Optimize images for performance */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+}
+
+/* Optimize fonts loading */
+@font-face {
+  font-display: swap; /* Improve font loading performance */
+}
+
+/* Critical CSS - inline this for above-the-fold content */
+.critical {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+}
+
+/* Non-critical styles - can be loaded async */
+.non-critical {
+  /* Move to separate stylesheet and load with media="print" onload="this.media='all'" */
+}
+
+/* Optimize table rendering */
+table {
+  table-layout: fixed;
+}
+
+/* Optimize list rendering */
+.large-list {
+  contain: strict;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.large-list-item {
+  contain: layout style paint;
+  height: 50px; /* Fixed height for better performance */
+}
+
+/* Optimize form rendering */
+.optimized-form input,
+.optimized-form select,
+.optimized-form textarea {
+  will-change: auto; /* Reset will-change after interaction */
+}
+
+.optimized-form input:focus,
+.optimized-form select:focus,
+.optimized-form textarea:focus {
+  will-change: border-color, box-shadow;
+}
+
+/* CSS Grid optimizations */
+.grid-container {
+  display: grid;
+  contain: layout;
+}
+
+/* Flexbox optimizations */
+.flex-container {
+  display: flex;
+  contain: layout;
+}
+
+/* Optimize background images */
+.bg-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* Loading states */
+.skeleton-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+}
+
+@keyframes skeleton {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Virtual scrolling support */
+.virtual-scroll-container {
+  overflow: auto;
+  contain: strict;
+}
+
+.virtual-scroll-item {
+  contain: layout style paint;
+}

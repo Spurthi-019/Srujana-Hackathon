@@ -1,5 +1,6 @@
+
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import { AcademicCapIcon, ArrowRightIcon, UserGroupIcon, UserIcon } from './components/AnimatedIcons';
@@ -31,9 +32,14 @@ function App() {
   const [selectedRole, setSelectedRole] = useState<UserRole>(null);
   const [authMode, setAuthMode] = useState<AuthMode>('login');
 
-  const unifiedCode = generateUnifiedCode(selectedCollege, selectedBlock, selectedClassroom, selectedTeacherCode);
+  // Memoize unified code generation to prevent recalculation on every render
+  const unifiedCode = useMemo(() => 
+    generateUnifiedCode(selectedCollege, selectedBlock, selectedClassroom, selectedTeacherCode),
+    [selectedCollege, selectedBlock, selectedClassroom, selectedTeacherCode]
+  );
 
-  const handleEnterClass = async () => {
+  // Memoize callback functions to prevent child re-renders
+  const handleEnterClass = useCallback(async () => {
     if (!isSignedIn) {
       addToast({
         message: 'Please sign in to access the classroom',
@@ -54,27 +60,28 @@ function App() {
         setIsLoading(false);
       }, 800);
     }
-  };
+  }, [isSignedIn, unifiedCode, addToast, navigate]);
 
-  const handleRoleSelect = (role: UserRole) => {
+  const handleRoleSelect = useCallback((role: UserRole) => {
     setSelectedRole(role);
-  };
+  }, []);
 
-  const AuthForm = ({ role }: { role: UserRole }) => {
-    if (!role) return null;
+  // Memoized components to prevent unnecessary re-renders
+  const renderAuthForm = useCallback(() => {
+    if (!selectedRole) return null;
 
     return (
       <div className="auth-form">
         <div className="auth-header">
           <div className="role-icon">
-            {role === 'student' ? (
+            {selectedRole === 'student' ? (
               <AcademicCapIcon size={32} />
             ) : (
               <UserGroupIcon size={32} />
             )}
           </div>
-          <h3>{role === 'student' ? 'Student' : 'Teacher'} Portal</h3>
-          <p>Welcome {role === 'student' ? 'students' : 'educators'}! Access your learning platform.</p>
+          <h3>{selectedRole === 'student' ? 'Student' : 'Teacher'} Portal</h3>
+          <p>Welcome {selectedRole === 'student' ? 'students' : 'educators'}! Access your learning platform.</p>
         </div>
 
         <div className="auth-toggle">
@@ -96,21 +103,21 @@ function App() {
           {authMode === 'login' ? (
             <SignInButton 
               mode="modal"
-              fallbackRedirectUrl={role === 'student' ? '/student/dashboard' : '/teacher/dashboard'}
+              fallbackRedirectUrl={selectedRole === 'student' ? '/student/dashboard' : '/teacher/dashboard'}
             >
               <button className="auth-action-btn login-btn">
                 <UserIcon size={20} />
-                Login as {role === 'student' ? 'Student' : 'Teacher'}
+                Login as {selectedRole === 'student' ? 'Student' : 'Teacher'}
               </button>
             </SignInButton>
           ) : (
             <SignUpButton 
               mode="modal"
-              fallbackRedirectUrl={role === 'student' ? '/student/dashboard' : '/teacher/dashboard'}
+              fallbackRedirectUrl={selectedRole === 'student' ? '/student/dashboard' : '/teacher/dashboard'}
             >
               <button className="auth-action-btn signup-btn">
                 <UserIcon size={20} />
-                Sign Up as {role === 'student' ? 'Student' : 'Teacher'}
+                Sign Up as {selectedRole === 'student' ? 'Student' : 'Teacher'}
               </button>
             </SignUpButton>
           )}
@@ -119,7 +126,7 @@ function App() {
         <div className="auth-features">
           <h4>What you'll get:</h4>
           <ul>
-            {role === 'student' ? (
+            {selectedRole === 'student' ? (
               <>
                 <li>✓ Access to interactive lessons</li>
                 <li>✓ Take quizzes and track progress</li>
@@ -145,9 +152,9 @@ function App() {
         </button>
       </div>
     );
-  };
+  }, [selectedRole, authMode]);
 
-  const RoleSelector = () => (
+  const renderRoleSelector = useCallback(() => (
     <div className="role-selector">
       <div className="role-header">
         <h2>Choose Your Role</h2>
@@ -188,7 +195,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  ), [handleRoleSelect]);
 
   if (!isLoaded) {
     return (
@@ -310,9 +317,9 @@ function App() {
           <div className="auth-section">
             {!isSignedIn ? (
               selectedRole ? (
-                <AuthForm role={selectedRole} />
+                renderAuthForm()
               ) : (
-                <RoleSelector />
+                renderRoleSelector()
               )
             ) : (
               <div className="user-welcome">
