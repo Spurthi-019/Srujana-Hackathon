@@ -31,7 +31,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "auto-commit": "node auto-commit.js --commit",
+    "auto-commit-start": "node auto-commit.js --start",
+    "git-push": "powershell.exe -ExecutionPolicy Bypass -File auto-commit.ps1"
   },
   "eslintConfig": {
     "extends": [
