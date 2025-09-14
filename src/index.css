@@ -72,7 +72,7 @@ input:focus, select:focus, textarea:focus, .input:focus {
   from { opacity: 0; transform: translateX(-40px); }
   to { opacity: 1; transform: none; }
 }
-/* Simple CSS reset and basic styles */
+/* Simple CSS reset and basic styles for ClassTrack */
 * {
   margin: 0;
   padding: 0;
@@ -83,10 +83,19 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   background-color: #f8f9fa;
+  color: #333;
 }
 
 #root {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure content appears above any background */
+#root > div {
+  position: relative;
+  z-index: 10;
 }
 
 code {
