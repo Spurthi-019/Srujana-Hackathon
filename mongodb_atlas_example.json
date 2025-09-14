@@ -1,0 +1,4 @@
+{
+  "connection_string": "mongodb+srv://smartclass:SmartClass2025@cluster0.mongodb.net/",
+  "database_name": "smartclass_attendance"
+}

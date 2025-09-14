@@ -1,0 +1,18 @@
+# Sample Images for Testing
+# ========================
+# Place your student/employee photos here
+# 
+# Naming convention: firstname_lastname.extension
+# Examples:
+#   - john_doe.jpg
+#   - jane_smith.png
+#   - alice_johnson.jpeg
+#   - bob_wilson.bmp
+#
+# Photo Requirements:
+# - Clear, front-facing photos
+# - Good lighting
+# - Single person per photo
+# - Supported formats: JPG, PNG, BMP, TIFF, WEBP
+#
+# After adding photos, run: python encode_faces.py
