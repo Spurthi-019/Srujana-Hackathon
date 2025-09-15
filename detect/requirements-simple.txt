@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+motor
+pymongo
+python-multipart
+speechrecognition
+requests
+opencv-python
+opencv-contrib-python
+numpy
+pillow
+python-dotenv
+google-generativeai
+chromadb
+PyPDF2
+python-pptx
+pandas
