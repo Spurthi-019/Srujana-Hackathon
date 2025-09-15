@@ -31,19 +31,14 @@ function App() {
   const [selectedRole, setSelectedRole] = useState<UserRole>(null);
   const [authMode, setAuthMode] = useState<AuthMode>('login');
 
-  // Check for stored role and auto-redirect signed-in users
+  // Check for stored role but don't auto-redirect immediately
   useEffect(() => {
     const storedRole = localStorage.getItem('userRole') as UserRole;
     if (storedRole) {
       setSelectedRole(storedRole);
     }
-
-    // Auto-redirect signed-in users if they have a stored role
-    if (isSignedIn && storedRole) {
-      const targetDashboard = storedRole === 'student' ? '/student/dashboard' : '/teacher/dashboard';
-      navigate(targetDashboard);
-    }
-  }, [isSignedIn, navigate]);
+    // Removed automatic redirect - let users choose when to go to dashboard
+  }, []);
 
   const unifiedCode = generateUnifiedCode(selectedCollege, selectedBlock, selectedClassroom, selectedTeacherCode);
 
