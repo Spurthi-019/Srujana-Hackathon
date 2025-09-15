@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: classtrack-backend
+    env: python
+    repo: https://github.com/Spurthi-019/Srujana-Hackathon.git
+    buildCommand: "cd detect && pip install -r requirements.txt"
+    startCommand: "cd detect && python main.py"
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: GOOGLE_API_KEY
+        value: AIzaSyDX7cQX5y2NsctC6t_DZtqlOTFeGq-4gFk
+      - key: MONGODB_URI
+        value: mongodb://localhost:27017
+      - key: DATABASE_NAME
+        value: college_app
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: '["https://classtrack-p2msj4dip-kumar-ankit369s-projects.vercel.app", "https://*.vercel.app", "http://localhost:3000"]'
+      - key: MAX_FILE_SIZE
+        value: 10485760
+      - key: FACE_RECOGNITION_CONFIDENCE
+        value: 0.6
+      - key: CACHE_TTL
+        value: 3600
+      - key: MAX_CACHE_SIZE
+        value: 1000
+    autoDeploy: false
+    disk:
+      name: classtrack-storage
+      mountPath: /opt/render/project/src/detect/uploads
+      sizeGB: 1
