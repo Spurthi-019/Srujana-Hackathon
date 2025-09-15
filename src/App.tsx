@@ -1,5 +1,5 @@
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import { AcademicCapIcon, ArrowRightIcon, UserGroupIcon, UserIcon } from './components/AnimatedIcons';
@@ -31,15 +31,6 @@ function App() {
   const [selectedRole, setSelectedRole] = useState<UserRole>(null);
   const [authMode, setAuthMode] = useState<AuthMode>('login');
 
-  // Check for stored role but don't auto-redirect immediately
-  useEffect(() => {
-    const storedRole = localStorage.getItem('userRole') as UserRole;
-    if (storedRole) {
-      setSelectedRole(storedRole);
-    }
-    // Removed automatic redirect - let users choose when to go to dashboard
-  }, []);
-
   const unifiedCode = generateUnifiedCode(selectedCollege, selectedBlock, selectedClassroom, selectedTeacherCode);
 
   const handleEnterClass = async () => {
@@ -67,10 +58,6 @@ function App() {
 
   const handleRoleSelect = (role: UserRole) => {
     setSelectedRole(role);
-    // Store the role for future sessions
-    if (role) {
-      localStorage.setItem('userRole', role);
-    }
   };
 
   const AuthForm = ({ role }: { role: UserRole }) => {
@@ -182,10 +169,6 @@ function App() {
             <span>• Progress Tracking</span>
             <span>• Quiz & Assignments</span>
           </div>
-          <div className="role-card-action">
-            <span>Click to continue as Student</span>
-            <ArrowRightIcon size={16} />
-          </div>
         </div>
 
         <div 
@@ -201,10 +184,6 @@ function App() {
             <span>• Classroom Management</span>
             <span>• Student Analytics</span>
             <span>• Content Creation</span>
-          </div>
-          <div className="role-card-action">
-            <span>Click to continue as Teacher</span>
-            <ArrowRightIcon size={16} />
           </div>
         </div>
       </div>
@@ -247,25 +226,15 @@ function App() {
             </div>
 
             <div className="classroom-form">
-              <div className="form-progress">
-                <div className={`progress-step ${selectedCollege ? 'completed' : 'active'}`}>1</div>
-                <div className={`progress-step ${selectedBlock ? 'completed' : selectedCollege ? 'active' : ''}`}>2</div>
-                <div className={`progress-step ${selectedClassroom ? 'completed' : selectedBlock ? 'active' : ''}`}>3</div>
-                <div className={`progress-step ${selectedTeacherCode ? 'completed' : selectedClassroom ? 'active' : ''}`}>4</div>
-              </div>
-
               <div className="form-group">
-                <label>
-                  <span>College</span>
-                  <span className="step-indicator">Step 1 of 4</span>
-                </label>
+                <label>College</label>
                 <select 
                   value={selectedCollege} 
                   onChange={e => setSelectedCollege(e.target.value)}
                   className="form-select"
                   aria-label="Select College"
                 >
-                  <option value="">Select your college</option>
+                  <option value="">Select College</option>
                   {colleges.map(college => (
                     <option key={college} value={college}>{college}</option>
                   ))}
@@ -273,18 +242,14 @@ function App() {
               </div>
 
               <div className="form-group">
-                <label>
-                  <span>Block</span>
-                  <span className="step-indicator">Step 2 of 4</span>
-                </label>
+                <label>Block</label>
                 <select 
                   value={selectedBlock} 
                   onChange={e => setSelectedBlock(e.target.value)}
                   className="form-select"
                   aria-label="Select Block"
-                  disabled={!selectedCollege}
                 >
-                  <option value="">Select your block</option>
+                  <option value="">Select Block</option>
                   {blocks.map(block => (
                     <option key={block} value={block}>{block}</option>
                   ))}
@@ -292,18 +257,14 @@ function App() {
               </div>
 
               <div className="form-group">
-                <label>
-                  <span>Classroom</span>
-                  <span className="step-indicator">Step 3 of 4</span>
-                </label>
+                <label>Classroom</label>
                 <select 
                   value={selectedClassroom} 
                   onChange={e => setSelectedClassroom(e.target.value)}
                   className="form-select"
                   aria-label="Select Classroom"
-                  disabled={!selectedBlock}
                 >
-                  <option value="">Select your classroom</option>
+                  <option value="">Select Classroom</option>
                   {classrooms.map(classroom => (
                     <option key={classroom} value={classroom}>{classroom}</option>
                   ))}
@@ -311,53 +272,33 @@ function App() {
               </div>
 
               <div className="form-group">
-                <label>
-                  <span>Teacher Code</span>
-                  <span className="step-indicator">Step 4 of 4</span>
-                </label>
+                <label>Teacher Code</label>
                 <input
                   type="text"
                   className="form-input"
                   value={selectedTeacherCode}
                   onChange={e => setSelectedTeacherCode(e.target.value)}
-                  placeholder="Enter teacher's unique code"
-                  disabled={!selectedClassroom}
+                  placeholder="Enter Unified Teacher Code"
                 />
               </div>
 
               {unifiedCode && (
                 <div className="unified-code-display">
-                  <span className="code-label">Generated Classroom Code:</span>
+                  <span className="code-label">Classroom Code:</span>
                   <span className="code-value">{unifiedCode}</span>
-                  <button 
-                    className="copy-code-btn"
-                    onClick={() => {
-                      navigator.clipboard.writeText(unifiedCode);
-                      addToast({
-                        message: 'Classroom code copied to clipboard!',
-                        type: 'success',
-                        duration: 3000
-                      });
-                    }}
-                  >
-                    Copy Code
-                  </button>
                 </div>
               )}
 
               <button
-                className={`enter-classroom-btn ${isLoading ? 'loading' : ''} ${!unifiedCode ? 'disabled' : ''}`}
+                className="enter-classroom-btn"
                 onClick={handleEnterClass}
                 disabled={!unifiedCode || isLoading}
               >
                 {isLoading ? (
-                  <>
-                    <LoadingSpinner size="small" color="white" />
-                    <span>Entering Classroom...</span>
-                  </>
+                  <LoadingSpinner size="small" color="white" />
                 ) : (
                   <>
-                    <span>Enter Classroom</span>
+                    Enter Classroom
                     <ArrowRightIcon size={20} />
                   </>
                 )}
@@ -381,36 +322,12 @@ function App() {
                   <p>Hello, {user?.firstName || 'User'}!</p>
                   <div className="user-actions">
                     <button 
-                      className="dashboard-btn student-btn"
-                      onClick={() => {
-                        localStorage.setItem('userRole', 'student');
-                        navigate('/student/dashboard');
-                      }}
+                      className="dashboard-btn"
+                      onClick={() => navigate('/student/dashboard')}
                     >
-                      <AcademicCapIcon size={20} />
-                      Student Dashboard
-                    </button>
-                    <button 
-                      className="dashboard-btn teacher-btn"
-                      onClick={() => {
-                        localStorage.setItem('userRole', 'teacher');
-                        navigate('/teacher/dashboard');
-                      }}
-                    >
-                      <UserGroupIcon size={20} />
-                      Teacher Dashboard
+                      Go to Dashboard
                     </button>
                   </div>
-                  <p className="dashboard-note">Choose your role to access the appropriate dashboard</p>
-                  <button 
-                    className="clear-role-btn"
-                    onClick={() => {
-                      localStorage.removeItem('userRole');
-                      setSelectedRole(null);
-                    }}
-                  >
-                    Switch Role
-                  </button>
                 </div>
               </div>
             )}
